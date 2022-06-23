@@ -6,7 +6,7 @@ interface User {
   public_repos: number,
   repos_url: string,
   repos: Repository[],
-  message?: string
+  message?: "Not found"
 }
 
 interface Repository {
@@ -26,9 +26,9 @@ class User implements User {
   public_repos: number
   repos_url: string
   repos: Repository[]
-  message?: string
+  message?: "Not found"
 
-  constructor (id: number, login: string, name: string, bio: string, public_repos: number, repos_url: string, repos: Repository[], message: string) {
+  constructor (id: number, login: string, name: string, bio: string, public_repos: number, repos_url: string, repos: Repository[], message: "Not found") {
     this.id = id
     this.login = login
     this.name = name
