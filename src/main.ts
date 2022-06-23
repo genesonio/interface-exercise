@@ -9,7 +9,7 @@ interface User {
   message?: string
 }
 
-type Repository = {
+interface Repository {
   name: string,
   description: string,
   fork: boolean,
@@ -19,6 +19,15 @@ type Repository = {
 let usersArray: User[] = []
 
 class User implements User {
+  id: number
+  login: string
+  name: string
+  bio: string
+  public_repos: number
+  repos_url: string
+  repos: Repository[]
+  message?: string
+
   constructor (id: number, login: string, name: string, bio: string, public_repos: number, repos_url: string, repos: Repository[], message: string) {
     this.id = id
     this.login = login
@@ -28,6 +37,20 @@ class User implements User {
     this.repos_url = repos_url
     this.repos = repos
     this.message = message
+  }
+}
+
+class Repo implements Repository {
+  name: string
+  description: string
+  fork: boolean
+  stargazers_count: number
+
+  constructor(name: string, description: string, fork: boolean, stargazers_count: number) {
+    this.name = name
+    this.description = description
+    this.fork = fork
+    this.stargazers_count = stargazers_count
   }
 }
 
@@ -48,7 +71,13 @@ async function _getUserRepos(user: User) {
   let userRepos: Repository[] = await (await fetch(user.repos_url)).json()
   let userHaveRepos: boolean = userRepos.length > 0
   if (userHaveRepos) {
-    user.repos = userRepos
+    let repoArray: Repository[] = []
+    userRepos.forEach(repo => {
+      let newRepo = new Repo(repo.name, repo.description, repo.fork, repo.stargazers_count)
+      repoArray.push(newRepo)
+    }
+    )
+    user.repos = repoArray
   }
 }
 

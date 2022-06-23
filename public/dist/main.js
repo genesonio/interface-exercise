@@ -20,6 +20,14 @@ class User {
         this.message = message;
     }
 }
+class Repo {
+    constructor(name, description, fork, stargazers_count) {
+        this.name = name;
+        this.description = description;
+        this.fork = fork;
+        this.stargazers_count = stargazers_count;
+    }
+}
 function getUserData() {
     return __awaiter(this, void 0, void 0, function* () {
         const username = document.getElementById('user').value;
@@ -40,7 +48,12 @@ function _getUserRepos(user) {
         let userRepos = yield (yield fetch(user.repos_url)).json();
         let userHaveRepos = userRepos.length > 0;
         if (userHaveRepos) {
-            user.repos = userRepos;
+            let repoArray = [];
+            userRepos.forEach(repo => {
+                let newRepo = new Repo(repo.name, repo.description, repo.fork, repo.stargazers_count);
+                repoArray.push(newRepo);
+            });
+            user.repos = repoArray;
         }
     });
 }
