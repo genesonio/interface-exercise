@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "watch": true,
+    "target": "ES2015",
+    "outDir": "public/dist",
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
