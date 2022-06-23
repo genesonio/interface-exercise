@@ -1,3 +1,5 @@
+let usersArray: User[] = []
+
 interface User {
   id: number,
   login: string,
@@ -15,8 +17,6 @@ interface Repository {
   fork: boolean,
   stargazers_count: number
 }
-
-let usersArray: User[] = []
 
 class User implements User {
   id: number
